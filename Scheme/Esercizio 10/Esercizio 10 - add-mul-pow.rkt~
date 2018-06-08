@@ -1,0 +1,29 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname add-mul-pow) (read-case-sensitive #t) (teachpacks ((lib "Teachpack_hanoi.ss" "installed-teachpacks"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "Teachpack_hanoi.ss" "installed-teachpacks")) #f)))
+(define H
+  (lambda (ident funz)
+    (lambda (m n)
+      (cond ((= n 0) (ident m))
+            ((= (ident m) 0) (funz m (mul m (- n 1))))
+            ((= (ident m) 1) (funz m (pow m (- n 1))))
+            ((= (ident m) m) (funz m (- n 1)))
+        )
+      )))
+
+(define s2
+  (lambda (u v)   ;u non serve, è soltanto la struttura base della funzione
+    (if (>= v 0)
+        (add (+ u 1) v)
+        u
+        )
+    ))
+
+(define add
+  (H (lambda (x) x) s2))
+
+(define mul
+  (H (lambda (x) 0) add))
+
+(define pow
+  (H (lambda (x) 1) mul))
