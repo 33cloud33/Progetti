@@ -1,15 +1,4 @@
-package esercizio_15;
-
 import puzzleboard.PuzzleBoard;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.beans.PropertyChangeListener;
-import java.util.EventListener;
 
 public class GiocoDelQuindici {
 
@@ -67,10 +56,7 @@ public class GiocoDelQuindici {
         }
         if ((posTassello == posZero-1) || (posTassello == posZero+1)) {
             return true;
-        }
-        else if ((posTassello + 4 == posZero) || (posTassello-4 == posZero)) {
-            return true;
-        } else return false;
+        } else return (posTassello + 4 == posZero) || (posTassello - 4 == posZero);
     }
 
 

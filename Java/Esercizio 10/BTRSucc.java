@@ -1,5 +1,3 @@
-package esercizio_10;
-
 /** Questa è l'esercitazione sulla codifica (parte 1)
  *  Il programma restituisce il numero successivo in codifica BTR
  *

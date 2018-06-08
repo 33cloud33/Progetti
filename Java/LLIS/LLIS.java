@@ -1,5 +1,3 @@
-package llis_v2;
-
 public class LLIS {
 
     public static void main(String[] args){

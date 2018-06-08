@@ -1,5 +1,3 @@
-package esercizio_11;
-
 public class IntSList {
     public static final IntSList NULL_INTLIST = new IntSList();
 

@@ -1,5 +1,3 @@
-package esercizio_14;
-
 public class Board {
 
     final int dimensione;
@@ -50,7 +48,7 @@ public class Board {
     public Board addQueen(int i, int j){
         String descrizione = "";
         for (int z=0; z<righe.length(); z++){
-            descrizione=descrizione+((char) (colonne.listRef(z)+96))+righe.listRef(z)+' ';
+            descrizione = descrizione + colonne.listRef(z) + 96 + righe.listRef(z) + ' ';
         }
 
         return new Board(dimensione,numeroRegine+1, righe.cons(i), colonne.cons(j),ascDestra.cons(i-j),ascSinistra.cons(i+j), descrizione);

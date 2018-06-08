@@ -1,4 +1,3 @@
-package esercizio_14;
 /*
  * Classe problema_13.SList<T>: Scheme-like Lists of T (generics)
  *
@@ -12,7 +11,7 @@ package esercizio_14;
  */
 
 
-import java.util.function.*;
+import java.util.function.Function;
 
 
 public class SList<T> {                    // Scheme-Like Lists of T

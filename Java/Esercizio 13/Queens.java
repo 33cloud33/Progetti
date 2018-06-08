@@ -1,6 +1,3 @@
-package esercizio_13;
-import queens.*;
-
 /*
  * Rompicapo delle "n regine"
  *

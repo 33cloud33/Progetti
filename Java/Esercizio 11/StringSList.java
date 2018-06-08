@@ -1,5 +1,3 @@
-package esercizio_11;
-
 /** Questo è l'esercizio 11 (parte 1)
  *  Classe StringSList
  */

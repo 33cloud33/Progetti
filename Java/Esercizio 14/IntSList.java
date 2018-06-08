@@ -1,4 +1,3 @@
-package esercizio_14;
 /*
  * Classe IntSList: Integer Scheme-like Lists
  *

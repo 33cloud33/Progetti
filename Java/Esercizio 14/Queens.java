@@ -1,5 +1,4 @@
-package esercizio_14;
-import queens.*;
+import queens.ChessboardView;
 
 import java.io.BufferedReader;
 import java.io.IOException;

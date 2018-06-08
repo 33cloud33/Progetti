@@ -1,4 +1,3 @@
-package esercizio_12;
 /*
  * Modulo Josephus:
  *

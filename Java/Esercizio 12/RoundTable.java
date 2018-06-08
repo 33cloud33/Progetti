@@ -1,5 +1,3 @@
-package esercizio_12;
-
 /*
  * Classe RoundTable:
  *
