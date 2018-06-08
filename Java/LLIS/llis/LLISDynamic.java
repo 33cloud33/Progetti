@@ -1,3 +1,5 @@
+package llis;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -12,12 +14,12 @@ class LLISDynamic {
         int [][]h = new int[n+1][n+1];
         int []sn = new int[n+1];
         /*Creazione nuova lista*/
-        for(int i=0;i<n;i++){
+        for(int i = 0; i<n; i++){
             sn[i] = s[i];
         }
         /*Ciclo for che parte da n e arriva a 0*/
-        for(int i=n;i>=0;i--){
-            for (int j=n;j>=0;j--){
+        for(int i = n; i>=0; i--){
+            for (int j = n; j>=0; j--){
                 if(i == n){
                     h[i][j] = 0;
                 }else if(sn[i]<=sn[j]){

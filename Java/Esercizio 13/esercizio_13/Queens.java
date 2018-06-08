@@ -1,20 +1,14 @@
-import queens.ChessboardView;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
-/*
+package esercizio_13;/*
  * Rompicapo delle "n regine"
  *
  * Ultimo aggiornamento: 12/04/2018
  *
  *
- * Dato astratto "configurazione della scacchiera":  Board
+ * Dato astratto "configurazione della scacchiera":  esercizio_13.esercizio_14.Board
  *
  * Operazioni:
  *
- *   new Board( int n )           :  costruttore (scacchiera vuota)
+ *   new esercizio_13.esercizio_14.Board( int n )           :  costruttore (scacchiera vuota)
  *
  *   size()                       :  int
  *
@@ -22,14 +16,14 @@ import java.io.InputStreamReader;
  *
  *   underAttack( int i, int j )  :  boolean
  *
- *   addQueen( int i, int j )     :  Board
+ *   addQueen( int i, int j )     :  esercizio_13.esercizio_14.Board
  *
  *   arrangement()                :  String
  *
  *
- * Board b;
+ * esercizio_13.esercizio_14.Board b;
  *
- *   new Board(n)           costruttore della scacchiera n x n vuota;
+ *   new esercizio_13.esercizio_14.Board(n)           costruttore della scacchiera n x n vuota;
  *   b.size()               dimensione n della scacchiera b;
  *   b.queensOn()           numero di regine collocate nella scacchiera b;
  *   b.underAttack(i,j)     la posizione <i,j> e' minacciata?
@@ -43,8 +37,7 @@ import java.io.InputStreamReader;
 
 public class Queens {
 
-  static ChessboardView gui;
-  static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
   /*
    * I. Numero di soluzioni:
    *
@@ -57,10 +50,11 @@ public class Queens {
    * cui si puo' completare la disposizione delle regine a partire
    * da una scacchiera n x n inizialmente vuota
    *
-   *   numberOfCompletions( new Board(n) )
+   *   numberOfCompletions( new esercizio_13.esercizio_14.Board(n) )
    */
   
   public static int numberOfSolutions( int n ) {
+    
     return numberOfCompletions( new Board(n) );
   }
   
@@ -93,16 +87,14 @@ public class Queens {
    * c'e' un solo modo (banale) di completare la disposizione:
    * lasciare le cose come stanno!
    */
-  static SList<Board> board = new SList<>();
+  
   private static int numberOfCompletions( Board b ) {
   
     int n = b.size();
     int q = b.queensOn();
     
     if ( q == n ) {
-      board = board.cons(b.addQueen(b.righe.listRef(0), b.colonne.listRef(0)));
-      System.out.println(b.arrangement());
-
+    
       return 1;
     
     } else {
@@ -112,44 +104,22 @@ public class Queens {
 
       for ( int j=1; j<=n; j=j+1 ) {
         if ( !b.underAttack(i,j) ) {
-          count = count + numberOfCompletions( b.addQueen(i,j) );
 
+          count = count + numberOfCompletions( b.addQueen(i,j) );
+          System.out.println(b.arrangement());
       }}
       return count;
     }
   }
 
-  static void stampaScacchiera (SList<Board> boardSList, int k){
-
-    String descrizione = boardSList.listRef(k).descrizione;
-    gui.setQueens(descrizione);
-
-  }
 
   public static void main( String args[] ) {
-
-    System.out.println("Inserire un numero compreso tra 1 e 15: ");
-    int n = 0;
-    try {
-      n = Integer.parseInt(br.readLine());
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    if (n<1 || n>15) {
-      System.out.println("Inserisci un numero da 1 a 15!");
-    } else {
-      numberOfSolutions(n);
-      gui = new ChessboardView(n);
-      for (int k=0; k<board.length(); k++) {
-        if (k == board.length()) {
-          k = 0;
-        }
-        stampaScacchiera(board, k); // a = colonna                          1 = riga
-      }
-      //System.out.println( numberOfSolutions(n) );
-    }
+  
+    int n = 5;
+    
+    System.out.println( numberOfSolutions(n) );
   }
 
 
-}  // class Queens
+}  // class esercizio_13.esercizio_14.Queens
 

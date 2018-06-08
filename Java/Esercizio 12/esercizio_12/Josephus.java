@@ -1,5 +1,5 @@
-/*
- * Modulo Josephus:
+package esercizio_12;/*
+ * Modulo esercizio_12.Josephus:
  *
  * Programma per risolvere il problema di Giuseppe Flavio
  * (metodi statici))
@@ -38,5 +38,5 @@ public class Josephus {
   }
 
 
-}  // class Josephus
+}  // class esercizio_12.Josephus
 

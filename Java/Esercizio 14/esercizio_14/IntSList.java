@@ -1,5 +1,5 @@
-/*
- * Classe IntSList: Integer Scheme-like Lists
+package esercizio_14;/*
+ * Classe esercizio_11.esercizio_12.esercizio_13.esercizio_14.IntSList: Integer Scheme-like Lists
  *
  * Definizione di una classe in Java per realizzare oggetti
  * assimilabili alle liste in Scheme, limitatamente al caso
@@ -15,15 +15,15 @@ public class IntSList {                    // Scheme-Like Lists of int
 
 
   // ----- Costante lista vuota (condivisa)
-  
-  public static final IntSList NULL_INTLIST = new IntSList();
+
+  public static final esercizio_11.IntSList NULL_INTLIST = new esercizio_11.IntSList();
   
   
   // ----- Rappresentazione interna di una lista: private!
   
   private final boolean empty;             // oggetti immutabili:
   private final int first;                 // variabili di istanza "final"
-  private final IntSList rest;
+  private final esercizio_11.IntSList rest;
   
   
   // ----- Operazioni di base sulle liste, mutuate da Scheme
@@ -34,8 +34,8 @@ public class IntSList {                    // Scheme-Like Lists of int
     first = 0;                             // valore irrilevante in questo caso
     rest = null;
   }
-  
-  public IntSList( int e, IntSList il ) {  // creazione di una lista non vuota:
+
+  public IntSList(int e, esercizio_11.IntSList il) {  // creazione di una lista non vuota:
                                            // Scheme: cons
     empty = false;
     first = e;
@@ -53,19 +53,19 @@ public class IntSList {                    // Scheme-Like Lists of int
                                            // Scheme: car
     return first;                          // si assume: lista non vuota
   }
-  
-  
-  public IntSList cdr() {                  // resto di una lista
+
+
+  public esercizio_11.IntSList cdr() {                  // resto di una lista
                                            // Scheme: cdr
     return rest;                           // si assume: lista non vuota
   }
   
   
   // ----- Realizzazione alternativa (sostanzialmente equivalente) del "cons"
-  
-  public IntSList cons( int e ) {          // costruzione di nuove liste
+
+  public esercizio_11.IntSList cons(int e) {          // costruzione di nuove liste
                                            // Scheme: cons
-    return new IntSList( e, this );
+    return new esercizio_11.IntSList(e, this);
   }
   
   
@@ -89,9 +89,9 @@ public class IntSList {                    // Scheme-Like Lists of int
       return ( cdr().listRef(k-1) );
     }
   }
-  
-  
-  public boolean equals( IntSList il ) {   // contronto di liste
+
+
+  public boolean equals(esercizio_11.IntSList il) {   // contronto di liste
                                            // Scheme: equal?
     if ( isNull() || il.isNull() ) {
       return ( isNull() && il.isNull() );
@@ -101,30 +101,30 @@ public class IntSList {                    // Scheme-Like Lists of int
       return false;
     }
   }
-  
-  
-  public IntSList append( IntSList il ) {  // fusione di liste
+
+
+  public esercizio_11.IntSList append(esercizio_11.IntSList il) {  // fusione di liste
                                            // Scheme: append
     if ( isNull() ) {
       return il;
     } else {
-      // return new IntSList( car(), cdr().append(il) );
+      // return new esercizio_11.esercizio_12.esercizio_13.esercizio_14.IntSList( car(), cdr().append(il) );
       return ( cdr().append(il) ).cons( car() );
     }
   }
-  
-  
-  public IntSList reverse() {              // rovesciamento di una lista
+
+
+  public esercizio_11.IntSList reverse() {              // rovesciamento di una lista
                                            // Scheme: reverse
-    return reverseRec( new IntSList() );
+    return reverseRec(new esercizio_11.IntSList());
   }
-  
-  private IntSList reverseRec( IntSList re ) {
+
+  private esercizio_11.IntSList reverseRec(esercizio_11.IntSList re) {
   
     if ( isNull() ) {                      // metodo di supporto: private!
       return re;
     } else {
-      // return cdr().reverseRec( new IntSList(car(),re) );
+      // return cdr().reverseRec( new esercizio_11.esercizio_12.esercizio_13.esercizio_14.IntSList(car(),re) );
       return cdr().reverseRec( re.cons(car()) );
     }
   }
@@ -140,7 +140,7 @@ public class IntSList {                    // Scheme-Like Lists of int
       return "(" + first + ")";
     } else {
       String rep = "(" + first;
-      IntSList r = rest;
+      esercizio_11.IntSList r = rest;
       while ( !r.isNull() ) {
         rep = rep + ", " + r.car();
         r = r.cdr();
@@ -150,5 +150,5 @@ public class IntSList {                    // Scheme-Like Lists of int
   }
 
 
-}  // class IntSList
+}  // class esercizio_11.esercizio_12.esercizio_13.esercizio_14.IntSList
 

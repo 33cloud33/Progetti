@@ -1,18 +1,20 @@
+package esercizio_15;
+
 import puzzleboard.PuzzleBoard;
 
 public class GiocoDelQuindici {
 
     int[] tasselli; // 1,6,2,3,
-                    // 13, 0 ,7,4,
-                    // 8,5,11,15,
-                    // 14,9,10,12
+    // 13, 0 ,7,4,
+    // 8,5,11,15,
+    // 14,9,10,12
 
     GiocoDelQuindici(int[] tasselli) {
         this.tasselli = tasselli;
         PuzzleBoard gui = new PuzzleBoard( 4);
         int cont = 0;
-        for (int i=1; i<=4; i=i+1) {
-            for (int j=1; j<=4; j=j+1) {
+        for (int i = 1; i<=4; i=i+1) {
+            for (int j = 1; j<=4; j=j+1) {
                 gui.setNumber(i, j, tasselli[cont]);
                 cont = cont+1;
             }
@@ -44,6 +46,7 @@ public class GiocoDelQuindici {
         }
         return true;
     }
+
     public boolean puoEssereSpostato (int tassello) {
         int posZero = -1;
         int posTassello = -1;
@@ -58,7 +61,6 @@ public class GiocoDelQuindici {
             return true;
         } else return (posTassello + 4 == posZero) || (posTassello - 4 == posZero);
     }
-
 
 
     public String configurazione() {
@@ -84,16 +86,13 @@ public class GiocoDelQuindici {
             if (posTassello - 1 == posZero) {  //Sinistra
                 tasselli[posTassello-1] = tassello;
                 tasselli[posTassello] = 0;
-            }
-            else if (posTassello + 1 == posZero) {  //Destra
+            } else if (posTassello + 1 == posZero) {  //Destra
                 tasselli[posTassello+1] = tassello;
                 tasselli[posTassello] = 0;
-            }
-            else if (posTassello - 4 == posZero) {  //Sotto
+            } else if (posTassello - 4 == posZero) {  //Sotto
                 tasselli[posTassello-4] = tassello;
                 tasselli[posTassello] = 0;
-            }
-            else if (posTassello + 4 == posZero) {  //Sopra
+            } else if (posTassello + 4 == posZero) {  //Sopra
                 tasselli[posTassello+4] = tassello;
                 tasselli[posTassello] = 0;
             }

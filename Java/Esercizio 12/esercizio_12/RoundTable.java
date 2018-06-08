@@ -1,5 +1,5 @@
-/*
- * Classe RoundTable:
+package esercizio_12;/*
+ * Classe esercizio_12.RoundTable:
  *
  * Modello alla base del problema di Giuseppe Flavio
  * (rivisto in termini di cavalieri attorno al tavolo)
@@ -10,12 +10,14 @@
  */
 
 
+import esercizio_11.IntSList;
+
 public class RoundTable {
 
 
   // ----- Rappresentazione interna del modello: private!
-  
-//private final IntSList knights;          // lista dei cavalieri (numerati)
+
+  //private final esercizio_11.esercizio_12.esercizio_13.esercizio_14.IntSList knights;          // lista dei cavalieri (numerati)
   private final int numeroCompl;           // numero complessivo dei cavalieri a tavola
   private int lunghezza;                   // lunghezza = lunghezza prima lista
   private final IntSList knightsBefore;    // MAI vuota
@@ -90,14 +92,14 @@ public class RoundTable {
     }
   }
   /*
-  public IntSList secondaLista(){
+  public esercizio_11.esercizio_12.esercizio_13.esercizio_14.IntSList secondaLista(){
     if(lunghezza <= 2){
-      return IntSList.NULL_INTLIST;
+      return esercizio_11.esercizio_12.esercizio_13.esercizio_14.IntSList.NULL_INTLIST;
     }else{
       return knightsAfter.cons(knightsBefore.car());
     }
   }  
   */
 
-}  // class RoundTable
+}  // class esercizio_12.RoundTable
 

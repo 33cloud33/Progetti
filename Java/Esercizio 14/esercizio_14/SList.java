@@ -1,5 +1,5 @@
-/*
- * Classe problema_13.SList<T>: Scheme-like Lists of T (generics)
+package esercizio_14;/*
+ * Classe problema_13.esercizio_14.SList<T>: Scheme-like Lists of T (generics)
  *
  * Definizione di una classe in Java per realizzare oggetti
  * assimilabili alle liste in Scheme, limitatamente al caso
@@ -18,8 +18,8 @@ public class SList<T> {                    // Scheme-Like Lists of T
 
 
   // ----- Costante lista vuota: non puo' essere definita staticamente:
-  
-  // public static final problema_13.SList<T> NULL_LIST = new problema_13.SList<T>();
+
+  // public static final problema_13.esercizio_14.SList<T> NULL_LIST = new problema_13.esercizio_14.SList<T>();
   
   
   // ----- Rappresentazione interna di una lista: private!
@@ -116,7 +116,7 @@ public class SList<T> {                    // Scheme-Like Lists of T
     if ( isNull() ) {
       return tl;
     } else {
-      // return new problema_13.SList<T>( car(), cdr().append(il) );
+      // return new problema_13.esercizio_14.SList<T>( car(), cdr().append(il) );
       return ( cdr().append(tl) ).cons( car() );
     }
   }
@@ -132,7 +132,7 @@ public class SList<T> {                    // Scheme-Like Lists of T
     if ( isNull() ) {                      // metodo di supporto: private!
       return re;
     } else {
-      // return cdr().reverseRec( new problema_13.SList<T>(car(),re) );
+      // return cdr().reverseRec( new problema_13.esercizio_14.SList<T>(car(),re) );
       return cdr().reverseRec( re.cons(car()) );
     }
   }
@@ -141,14 +141,14 @@ public class SList<T> {                    // Scheme-Like Lists of T
   // ----- Metodo con argomento procedurale - Scheme: map
   
   //       f : T -> Object (oggetti di qualunque tipo)
-  //       lista restituita di tipo problema_13.SList<Object>
+  //       lista restituita di tipo problema_13.esercizio_14.SList<Object>
   
   public SList<Object> map( Function<T,Object> f ) {
   
     if ( isNull() ) {
       return new SList<Object>();
     } else {
-      // return new problema_13.SList<Object>( f.apply(car()), cdr().map(f) );
+      // return new problema_13.esercizio_14.SList<Object>( f.apply(car()), cdr().map(f) );
       return ( cdr().map(f) ).cons( f.apply(car()) );
     }
   }
@@ -174,5 +174,5 @@ public class SList<T> {                    // Scheme-Like Lists of T
   }
 
 
-}  // class problema_13.SList<T>
+}  // class problema_13.esercizio_14.SList<T>
 

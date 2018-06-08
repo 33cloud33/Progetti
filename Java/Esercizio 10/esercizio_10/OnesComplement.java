@@ -1,3 +1,5 @@
+package esercizio_10;
+
 /** Questa è l'esercitazione sulla codifica (parte 2)
  *  Il programma gestisce la codifica di un numero binario in complemento a uno
  */

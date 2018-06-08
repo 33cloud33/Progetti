@@ -1,9 +1,11 @@
+package esercizio_12;
+
 public class IntSList {
-    public static final IntSList NULL_INTLIST = new IntSList();
+    public static final esercizio_11.IntSList NULL_INTLIST = new esercizio_11.IntSList();
 
     private final boolean empty;
     private final int first;
-    private final IntSList rest;
+    private final esercizio_11.IntSList rest;
 
     public IntSList() {            // null
         empty = true;
@@ -11,7 +13,7 @@ public class IntSList {
         rest = null;
     }
 
-    public IntSList(int n, IntSList s) { //cons
+    public IntSList(int n, esercizio_11.IntSList s) { //cons
         empty = false;
         first = n;
         rest = s;
@@ -25,19 +27,19 @@ public class IntSList {
         return first;
     }
 
-    public IntSList cdr() {        // cdr
+    public esercizio_11.IntSList cdr() {        // cdr
         return rest;
     }
 
-    public IntSList cons(int n) {  // cons
-        return (new IntSList(n, this));
+    public esercizio_11.IntSList cons(int n) {  // cons
+        return (new esercizio_11.IntSList(n, this));
     }
 
     public String toString() {
         if (isNull()) {
             return "()";
         } else {            String s = "(" + car();
-            IntSList x = cdr();
+            esercizio_11.IntSList x = cdr();
             while (!x.isNull()) {
                 s = s + " " + x.car();
                 x = x.cdr();
@@ -47,7 +49,7 @@ public class IntSList {
         }
     }
 
-    public boolean equals(IntSList s) {
+    public boolean equals(esercizio_11.IntSList s) {
         if (isNull() || s.isNull()) {
             return (isNull() && s.isNull());
         } else if (car() == s.car()) {
@@ -57,7 +59,7 @@ public class IntSList {
         }
     }
 
-    public IntSList append( IntSList s) {
+    public esercizio_11.IntSList append(esercizio_11.IntSList s) {
         if (isNull()) {
             return s;
         }else{
@@ -65,11 +67,11 @@ public class IntSList {
         }
     }
 
-    public IntSList reverse() {
+    public esercizio_11.IntSList reverse() {
         return revRec (NULL_INTLIST);
     }
 
-    private IntSList revRec(IntSList s){
+    private esercizio_11.IntSList revRec(esercizio_11.IntSList s) {
         if (isNull()) {
             return s;
         } else {
