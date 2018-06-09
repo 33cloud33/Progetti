@@ -1,5 +1,6 @@
-package esercizio_13;/*
- * Classe esercizio_11.esercizio_12.esercizio_13.esercizio_14.IntSList: Integer Scheme-like Lists
+package esercizio_13;
+/*
+ * Classe IntSList: Integer Scheme-like Lists
  *
  * Definizione di una classe in Java per realizzare oggetti
  * assimilabili alle liste in Scheme, limitatamente al caso
@@ -108,7 +109,7 @@ public class IntSList {                    // Scheme-Like Lists of int
     if ( isNull() ) {
       return il;
     } else {
-      // return new esercizio_11.esercizio_12.esercizio_13.esercizio_14.IntSList( car(), cdr().append(il) );
+      // return new IntSList( car(), cdr().append(il) );
       return ( cdr().append(il) ).cons( car() );
     }
   }
@@ -124,7 +125,7 @@ public class IntSList {                    // Scheme-Like Lists of int
     if ( isNull() ) {                      // metodo di supporto: private!
       return re;
     } else {
-      // return cdr().reverseRec( new esercizio_11.esercizio_12.esercizio_13.esercizio_14.IntSList(car(),re) );
+      // return cdr().reverseRec( new IntSList(car(),re) );
       return cdr().reverseRec( re.cons(car()) );
     }
   }
@@ -150,5 +151,5 @@ public class IntSList {                    // Scheme-Like Lists of int
   }
 
 
-}
+}  // class IntSList
 

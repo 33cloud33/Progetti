@@ -12,11 +12,11 @@ import java.io.InputStreamReader;
  * Ultimo aggiornamento: 12/04/2018
  *
  *
- * Dato astratto "configurazione della scacchiera":  esercizio_13.esercizio_14.Board
+ * Dato astratto "configurazione della scacchiera":  Board
  *
  * Operazioni:
  *
- *   new esercizio_13.esercizio_14.Board( int n )           :  costruttore (scacchiera vuota)
+ *   new Board( int n )           :  costruttore (scacchiera vuota)
  *
  *   size()                       :  int
  *
@@ -24,14 +24,14 @@ import java.io.InputStreamReader;
  *
  *   underAttack( int i, int j )  :  boolean
  *
- *   addQueen( int i, int j )     :  esercizio_13.esercizio_14.Board
+ *   addQueen( int i, int j )     :  Board
  *
  *   arrangement()                :  String
  *
  *
- * esercizio_13.esercizio_14.Board b;
+ * Board b;
  *
- *   new esercizio_13.esercizio_14.Board(n)           costruttore della scacchiera n x n vuota;
+ *   new Board(n)           costruttore della scacchiera n x n vuota;
  *   b.size()               dimensione n della scacchiera b;
  *   b.queensOn()           numero di regine collocate nella scacchiera b;
  *   b.underAttack(i,j)     la posizione <i,j> e' minacciata?
@@ -59,10 +59,10 @@ public class Queens {
    * cui si puo' completare la disposizione delle regine a partire
    * da una scacchiera n x n inizialmente vuota
    *
-   *   numberOfCompletions( new esercizio_13.esercizio_14.Board(n) )
+   *   numberOfCompletions( new Board(n) )
    */
 
-  public static int numberOfSolutions(int n ) {
+  public static int numberOfSolutions(int n) {
     return numberOfCompletions( new Board(n) );
   }
 
@@ -96,7 +96,6 @@ public class Queens {
    * lasciare le cose come stanno!
    */
   static SList<Board> board = new SList<>();
-
   private static int numberOfCompletions( Board b ) {
 
     int n = b.size();
@@ -113,11 +112,12 @@ public class Queens {
       int i = q + 1;
       int count = 0;
 
-      for (int j=1; j<=n; j=j+1 ) {
+      for (int j = 1; j <= n; j = j + 1) {
         if ( !b.underAttack(i,j) ) {
           count = count + numberOfCompletions( b.addQueen(i,j) );
 
-        }}
+        }
+      }
       return count;
     }
   }
@@ -143,7 +143,7 @@ public class Queens {
     } else {
       numberOfSolutions(n);
       gui = new ChessboardView(n);
-      for (int k = 0; k<board.length(); k++) {
+      for (int k = 0; k < board.length(); k++) {
         if (k == board.length()) {
           k = 0;
         }
@@ -154,5 +154,5 @@ public class Queens {
   }
 
 
-}  // class esercizio_13.esercizio_14.Queens
+}  // class Queens
 

@@ -1,14 +1,15 @@
-package esercizio_13;/*
+package esercizio_13;
+/*
  * Rompicapo delle "n regine"
  *
  * Ultimo aggiornamento: 12/04/2018
  *
  *
- * Dato astratto "configurazione della scacchiera":  esercizio_13.esercizio_14.Board
+ * Dato astratto "configurazione della scacchiera":  Board
  *
  * Operazioni:
  *
- *   new esercizio_13.esercizio_14.Board( int n )           :  costruttore (scacchiera vuota)
+ *   new Board( int n )           :  costruttore (scacchiera vuota)
  *
  *   size()                       :  int
  *
@@ -16,14 +17,14 @@ package esercizio_13;/*
  *
  *   underAttack( int i, int j )  :  boolean
  *
- *   addQueen( int i, int j )     :  esercizio_13.esercizio_14.Board
+ *   addQueen( int i, int j )     :  Board
  *
  *   arrangement()                :  String
  *
  *
- * esercizio_13.esercizio_14.Board b;
+ * Board b;
  *
- *   new esercizio_13.esercizio_14.Board(n)           costruttore della scacchiera n x n vuota;
+ *   new Board(n)           costruttore della scacchiera n x n vuota;
  *   b.size()               dimensione n della scacchiera b;
  *   b.queensOn()           numero di regine collocate nella scacchiera b;
  *   b.underAttack(i,j)     la posizione <i,j> e' minacciata?
@@ -50,7 +51,7 @@ public class Queens {
    * cui si puo' completare la disposizione delle regine a partire
    * da una scacchiera n x n inizialmente vuota
    *
-   *   numberOfCompletions( new esercizio_13.esercizio_14.Board(n) )
+   *   numberOfCompletions( new Board(n) )
    */
   
   public static int numberOfSolutions( int n ) {
@@ -121,5 +122,5 @@ public class Queens {
   }
 
 
-}  // class esercizio_13.esercizio_14.Queens
+}  // class Queens
 

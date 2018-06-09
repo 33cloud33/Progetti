@@ -59,7 +59,7 @@ public class Board {
          *
          * */
         for (int z=0; z<righe.length(); z++){
-            descrizione = descrizione + colonne.listRef(z) + 96 + righe.listRef(z) + ' ';
+            descrizione = descrizione + ((char) (colonne.listRef(z) + 96)) + righe.listRef(z) + ' ';
         }
 
         return new Board(dimensione,numeroRegine+1, righe.cons(i), colonne.cons(j),ascDestra.cons(i-j),ascSinistra.cons(i+j));
@@ -67,8 +67,8 @@ public class Board {
 
     public String arrangement() {
         String ris = "<"+dimensione+", "+numeroRegine+", "+righe.toString()+", "+
-                colonne.toString()+", "+
-                ascSinistra.toString()+", "+
+                colonne.toString() + ", " +
+                ascSinistra.toString() + ", " +
                 ascDestra.toString()+", " + descrizione + ">";
         return ris;
     }

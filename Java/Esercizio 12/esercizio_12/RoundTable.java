@@ -10,8 +10,6 @@ package esercizio_12;/*
  */
 
 
-import esercizio_11.IntSList;
-
 public class RoundTable {
 
 
