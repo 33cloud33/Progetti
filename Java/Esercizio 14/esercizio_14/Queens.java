@@ -1,6 +1,5 @@
 package esercizio_14;
 
-import esercizio_13.Board;
 import queens.ChessboardView;
 
 import java.io.BufferedReader;

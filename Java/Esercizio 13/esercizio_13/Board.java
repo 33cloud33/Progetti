@@ -1,7 +1,5 @@
 package esercizio_13;
 
-import esercizio_11.IntSList;
-
 public class Board {
 
     final int dimensione;
