@@ -37,6 +37,8 @@ public class IntSList {
 
     public String toString() {
         if (isNull()) {
+            https:
+//github.com/33cloud33/Programmazione/
             return "()";
         } else {            String s = "(" + car();
             IntSList x = cdr();
