@@ -10,22 +10,22 @@ public class OnesComplement {
         new OnesComplement();
     }
 
-    OnesComplement(){
+    private OnesComplement() {
         System.out.println(onesComplement("1111000010"));
     }
 
-    public String bitComplement(String bit){
+    private String bitComplement(String bit) {
         if (bit.equals("0")){
             return "1";
         } else return "0";
     }
 
-    public String onesComplement(String bin){
+    private String onesComplement(String bin) {
 
         if (bin.equals("")){
             return "";
         } else {
-            String s1 = new String();
+            String s1 = "";
             for (int i=0; i<bin.length(); i++){
                 s1 = s1 + bitComplement(bin.substring(i, i+1));
             }

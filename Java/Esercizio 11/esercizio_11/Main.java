@@ -6,7 +6,7 @@ public class Main {
         new Main();
     }
 
-    Main() {
+    private Main() {
         //Stampa una lista vuota
         StringSList s1 = new StringSList();
         System.out.println(s1.toString());

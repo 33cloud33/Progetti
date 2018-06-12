@@ -53,8 +53,8 @@ public class Queens {
    *
    *   numberOfCompletions( new Board(n) )
    */
-  
-  public static int numberOfSolutions( int n ) {
+
+  private static int numberOfSolutions(int n) {
     
     return numberOfCompletions( new Board(n) );
   }

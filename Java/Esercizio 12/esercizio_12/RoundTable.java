@@ -17,7 +17,7 @@ public class RoundTable {
 
   //private final esercizio_11.esercizio_12.esercizio_13.esercizio_14.IntSList knights;          // lista dei cavalieri (numerati)
   private final int numeroCompl;           // numero complessivo dei cavalieri a tavola
-  private int lunghezza;                   // lunghezza = lunghezza prima lista
+  private final int lunghezza;                   // lunghezza = lunghezza prima lista
   private final IntSList knightsBefore;    // MAI vuota
   private final IntSList knightsAfter;     // pu� essere svuotata
   

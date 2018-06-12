@@ -20,13 +20,13 @@ class StringSList {
         rest = null;
     }
 
-    public StringSList (String e, StringSList il){
+    private StringSList(String e, StringSList il) {
         empty = false;
         first = e;
         rest = il;
     }
 
-    public boolean isNull() {                // verifica se una lista e' vuota
+    private boolean isNull() {                // verifica se una lista e' vuota
         return ( empty );
     }
 
@@ -43,7 +43,7 @@ class StringSList {
         return new StringSList( e, this );
     }
 
-    public int length() {                    // lunghezza di una lista
+    private int length() {                    // lunghezza di una lista
         if ( isNull() ) {
             return 0;
         } else {
@@ -51,7 +51,7 @@ class StringSList {
         }
     }
 
-    public String listRef( int k ) {            // elemento in posizione k
+    private String listRef(int k) {            // elemento in posizione k
         if ( k == 0 ) {
             return car();
         } else {
@@ -59,10 +59,10 @@ class StringSList {
         }
     }
 
-    public boolean equals( StringSList il ) {   // contronto di liste
+    private boolean equals(StringSList il) {   // contronto di liste
         if ( isNull() || il.isNull() ) {
             return ( isNull() && il.isNull() );
-        } else if ( car() == il.car() ) {
+        } else if (car().equals(il.car())) {
             return cdr().equals( il.cdr() );
         } else {
             return false;

@@ -36,27 +36,27 @@ public class IntSList {                    // Scheme-Like Lists of int
     rest = null;
   }
 
-  public IntSList(int e, IntSList il) {  // creazione di una lista non vuota:
+  private IntSList(int e, IntSList il) {  // creazione di una lista non vuota:
                                            // Scheme: cons
     empty = false;
     first = e;
     rest = il;
   }
-  
-  
-  public boolean isNull() {                // verifica se una lista e' vuota
+
+
+  private boolean isNull() {                // verifica se una lista e' vuota
                                            // Scheme: null?
     return ( empty );
   }
-  
 
-  public int car() {                       // primo elemento di una lista
+
+  private int car() {                       // primo elemento di una lista
                                            // Scheme: car
     return first;                          // si assume: lista non vuota
   }
 
 
-  public IntSList cdr() {                  // resto di una lista
+  private IntSList cdr() {                  // resto di una lista
                                            // Scheme: cdr
     return rest;                           // si assume: lista non vuota
   }
@@ -92,7 +92,7 @@ public class IntSList {                    // Scheme-Like Lists of int
   }
 
 
-  public boolean equals(IntSList il) {   // contronto di liste
+  private boolean equals(IntSList il) {   // contronto di liste
                                            // Scheme: equal?
     if ( isNull() || il.isNull() ) {
       return ( isNull() && il.isNull() );
@@ -104,7 +104,7 @@ public class IntSList {                    // Scheme-Like Lists of int
   }
 
 
-  public IntSList append(IntSList il) {  // fusione di liste
+  private IntSList append(IntSList il) {  // fusione di liste
                                            // Scheme: append
     if ( isNull() ) {
       return il;

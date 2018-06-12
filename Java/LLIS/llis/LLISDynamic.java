@@ -1,7 +1,6 @@
 package llis;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 class LLISDynamic {
 
@@ -44,7 +43,7 @@ class LLISDynamic {
         return h[0][n];
     }
 
-    private static ArrayList lista(int[][] h, int[] s){
+    private static void lista(int[][] h, int[] s) {
         int sol = h[0][h.length-1];
 
         ArrayList listaSol = new ArrayList();
@@ -54,11 +53,9 @@ class LLISDynamic {
                 sol = sol - 1;
             }
         }
-        Iterator ciclo = listaSol.iterator();
-        while(ciclo.hasNext()) {
-            System.out.println(ciclo.next());
+        for (Object aListaSol : listaSol) {
+            System.out.println(aListaSol);
         }
-        return listaSol;
     }
 
 }

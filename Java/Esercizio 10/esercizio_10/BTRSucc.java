@@ -7,17 +7,14 @@ package esercizio_10;
 
 public class BTRSucc {
 
-    int n;
-    char lsb;
-
     public static void main(String[] args) {
         BTRSucc prova = new BTRSucc();
         System.out.println(prova.btrSucc("+--+.+"));
     }
 
-    public String btrSucc(String btrStart){
-        n = btrStart.length();
-        lsb = btrStart.charAt(n-1);
+    private String btrSucc(String btrStart) {
+        int n = btrStart.length();
+        char lsb = btrStart.charAt(n - 1);
         if (n == 1) {
             if (lsb == '+'){
                 return "+-";
@@ -25,7 +22,7 @@ public class BTRSucc {
                 return "+";
             }
         } else {
-            String pre = btrStart.substring(0, n-1);
+            String pre = btrStart.substring(0, n - 1);
             if (lsb == '+'){
                 return btrSucc(pre) + "-";
             } else {

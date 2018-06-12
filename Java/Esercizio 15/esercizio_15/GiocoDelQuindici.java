@@ -2,9 +2,9 @@ package esercizio_15;
 
 import puzzleboard.PuzzleBoard;
 
-public class GiocoDelQuindici {
+class GiocoDelQuindici {
 
-    int[] tasselli; // 1,6,2,3,
+    private final int[] tasselli; // 1,6,2,3,
     // 13, 0 ,7,4,
     // 8,5,11,15,
     // 14,9,10,12
@@ -47,7 +47,7 @@ public class GiocoDelQuindici {
         return true;
     }
 
-    public boolean puoEssereSpostato (int tassello) {
+    private boolean puoEssereSpostato(int tassello) {
         int posZero = -1;
         int posTassello = -1;
         for (int i=0; i<tasselli.length; i++){
@@ -63,7 +63,7 @@ public class GiocoDelQuindici {
     }
 
 
-    public String configurazione() {
+    private String configurazione() {
         String configurazione = "[ " + tasselli[0];
         for (int i=1; i<tasselli.length; i++) {
             configurazione += (", " + String.valueOf(tasselli[i]));
@@ -72,7 +72,7 @@ public class GiocoDelQuindici {
     }
 
 
-    public void spostaTassello(int tassello) {
+    private void spostaTassello(int tassello) {
         if (puoEssereSpostato(tassello)) {
             int posZero = -1;
             int posTassello = -1;

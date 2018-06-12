@@ -10,7 +10,7 @@ package esercizio_12;/*
 public class Josephus {
 
 
-  public static int josephus( int n ) {
+    private static int josephus(int n) {
 
     return josephusRec( new RoundTable(n) );
   }

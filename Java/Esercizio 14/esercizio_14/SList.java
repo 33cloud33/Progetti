@@ -38,28 +38,28 @@ public class SList<T> {                    // Scheme-Like Lists of T
     first = null;                          // valore irrilevante in questo caso
     rest = null;
   }
-  
-  public SList( T e, SList<T> tl ) {       // creazione di una lista non vuota:
+
+  private SList(T e, SList<T> tl) {       // creazione di una lista non vuota:
                                            // Scheme: cons
     // empty = false;
     first = e;
     rest = tl;
   }
-  
-  
-  public boolean isNull() {                // verifica se una lista e' vuota
+
+
+  boolean isNull() {                // verifica se una lista e' vuota
                                            // Scheme: null?
     return ( first == null );              // empty
   }
-  
 
-  public T car() {                         // primo elemento di una lista
+
+  T car() {                         // primo elemento di una lista
                                            // Scheme: car
     return first;                          // si assume: lista non vuota
   }
-  
-  
-  public SList<T> cdr() {                  // resto di una lista
+
+
+  SList<T> cdr() {                  // resto di una lista
                                            // Scheme: cdr
     return rest;                           // si assume: lista non vuota
   }
@@ -93,9 +93,9 @@ public class SList<T> {                    // Scheme-Like Lists of T
       return ( cdr().listRef(k-1) );
     }
   }
-  
-  
-  public boolean equals( SList<T> tl ) {   // contronto di liste
+
+
+  boolean equals(SList<T> tl) {   // contronto di liste
                                            // Scheme: equal?
     if ( isNull() || tl.isNull() ) {
       return ( isNull() && tl.isNull() );
@@ -111,8 +111,8 @@ public class SList<T> {                    // Scheme-Like Lists of T
     return equals( (SList<T>) tl );
   }
 
-  
-  public SList<T> append( SList<T> tl ) {  // fusione di liste
+
+  SList<T> append(SList<T> tl) {  // fusione di liste
                                            // Scheme: append
     if ( isNull() ) {
       return tl;
@@ -143,8 +143,8 @@ public class SList<T> {                    // Scheme-Like Lists of T
   
   //       f : T -> Object (oggetti di qualunque tipo)
   //       lista restituita di tipo problema_13.SList<Object>
-  
-  public SList<Object> map( Function<T,Object> f ) {
+
+  SList<Object> map(Function<T, Object> f) {
   
     if ( isNull() ) {
       return new SList<Object>();

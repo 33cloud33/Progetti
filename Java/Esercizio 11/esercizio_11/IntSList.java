@@ -1,37 +1,37 @@
 package esercizio_11;
 
 public class IntSList {
-    public static final IntSList NULL_INTLIST = new IntSList();
+    private static final IntSList NULL_INTLIST = new IntSList();
 
     private final boolean empty;
     private final int first;
     private final IntSList rest;
 
-    public IntSList() {            // null
+    private IntSList() {            // null
         empty = true;
         first = 0;
         rest = null;
     }
 
-    public IntSList(int n, IntSList s) { //cons
+    private IntSList(int n, IntSList s) { //cons
         empty = false;
         first = n;
         rest = s;
     }
 
-    public boolean isNull() {      // null?
+    private boolean isNull() {      // null?
         return empty;
     }
 
-    public int car() {             // car
+    private int car() {             // car
         return first;
     }
 
-    public IntSList cdr() {        // cdr
+    private IntSList cdr() {        // cdr
         return rest;
     }
 
-    public IntSList cons(int n) {  // cons
+    private IntSList cons(int n) {  // cons
         return (new IntSList(n, this));
     }
 
@@ -49,7 +49,7 @@ public class IntSList {
         }
     }
 
-    public boolean equals(IntSList s) {
+    private boolean equals(IntSList s) {
         if (isNull() || s.isNull()) {
             return (isNull() && s.isNull());
         } else if (car() == s.car()) {
@@ -59,7 +59,7 @@ public class IntSList {
         }
     }
 
-    public IntSList append(IntSList s) {
+    private IntSList append(IntSList s) {
         if (isNull()) {
             return s;
         }else{
@@ -79,7 +79,7 @@ public class IntSList {
         }
     }
 
-    public int length(){
+    private int length() {
         if (isNull()){
             return 0;
         } else {

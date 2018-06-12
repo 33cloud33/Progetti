@@ -2,9 +2,12 @@ package esercizio_14;
 
 public class Board {
 
-    final int dimensione;
-    int numeroRegine;
-    IntSList righe, colonne, ascDestra, ascSinistra;
+    final IntSList righe;
+    final IntSList colonne;
+    private final int dimensione;
+    private final IntSList ascDestra;
+    private final IntSList ascSinistra;
+    private int numeroRegine;
     String descrizione = "";
 
     Board(int n) {
@@ -15,7 +18,7 @@ public class Board {
         ascSinistra = new IntSList();
     }
 
-    public Board(int dimensione, int numeroRegine, IntSList righe, IntSList colonne, IntSList ascDestra, IntSList ascSinistra, String descrizione) {
+    private Board(int dimensione, int numeroRegine, IntSList righe, IntSList colonne, IntSList ascDestra, IntSList ascSinistra, String descrizione) {
         this.dimensione = dimensione;
         this.numeroRegine = numeroRegine;
         this.righe = righe;
@@ -70,11 +73,10 @@ public class Board {
 
     public String arrangement() {
 
-        String ris = "<"+dimensione+", "+numeroRegine+", "+righe.toString()+", "+
+        return "<" + dimensione + ", " + numeroRegine + ", " + righe.toString() + ", " +
                 colonne.toString() + ", " +
                 ascSinistra.toString() + ", " +
                 ascDestra.toString()+", " + descrizione + ">";
-        return ris;
     }
 
 }

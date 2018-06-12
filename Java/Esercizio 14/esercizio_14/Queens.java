@@ -45,8 +45,8 @@ import java.io.InputStreamReader;
 
 public class Queens {
 
-  static ChessboardView gui;
-  static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+  private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+  private static ChessboardView gui;
   /*
    * I. Numero di soluzioni:
    *
@@ -61,12 +61,6 @@ public class Queens {
    *
    *   numberOfCompletions( new Board(n) )
    */
-
-  public static int numberOfSolutions(int n) {
-    return numberOfCompletions( new Board(n) );
-  }
-
-
   /*
    * Il numero di modi in cui si puo' completare la disposizione
    * a partire da una scacchiera b parzialmente configurata
@@ -95,7 +89,11 @@ public class Queens {
    * c'e' un solo modo (banale) di completare la disposizione:
    * lasciare le cose come stanno!
    */
-  static SList<Board> board = new SList<>();
+  private static SList<Board> board = new SList<>();
+
+  private static void numberOfSolutions(int n) {
+    numberOfCompletions(new Board(n));
+  }
   private static int numberOfCompletions( Board b ) {
 
     int n = b.size();
@@ -122,7 +120,7 @@ public class Queens {
     }
   }
 
-  static void stampaScacchiera (SList<Board> boardSList, int k){
+  private static void stampaScacchiera(SList<Board> boardSList, int k) {
 
     String descrizione = boardSList.listRef(k).descrizione;
     gui.setQueens(descrizione);
