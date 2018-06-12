@@ -15,13 +15,10 @@ public class OnesComplement {
     }
 
     private String bitComplement(String bit) {
-        if (bit.equals("0")){
-            return "1";
-        } else return "0";
+        return (bit.equals("0")) ? "1" : "0";
     }
 
     private String onesComplement(String bin) {
-
         if (bin.equals("")){
             return "";
         } else {
