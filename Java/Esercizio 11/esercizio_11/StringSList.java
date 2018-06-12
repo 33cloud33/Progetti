@@ -10,10 +10,6 @@ class StringSList {
     private final String first;                 // variabili di istanza "final"
     private final StringSList rest;
 
-    public static void main(String[] args) {
-        new StringSList();
-    }
-
     public StringSList(){
         empty = true;
         first = "";                             // valore irrilevante in questo caso
