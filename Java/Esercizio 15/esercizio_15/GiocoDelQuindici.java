@@ -1,3 +1,8 @@
+
+/** Funzionante ma bisogna importare PuzzleBoard */
+
+
+/*
 package esercizio_15;
 
 import puzzleboard.PuzzleBoard;
@@ -101,3 +106,4 @@ class GiocoDelQuindici {
 
 
 }
+*/
