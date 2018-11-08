@@ -1,3 +1,6 @@
+/** Funzionante ma bisogna implementare PuzzleBoard (in GiocoDelQuindici)*/
+/*
+
 package esercizio_15;
 
 import java.io.BufferedReader;
@@ -27,3 +30,4 @@ public class Main {
     }
 
 }
+*/

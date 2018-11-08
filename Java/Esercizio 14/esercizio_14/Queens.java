@@ -1,10 +1,15 @@
+/*
+
 package esercizio_14;
 
-import queens.ChessboardView;
+//import queens.ChessboardView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+*/
+
+
 
 /*
  * Rompicapo delle "n regine"
@@ -42,7 +47,7 @@ import java.io.InputStreamReader;
  *                          (convenzioni scacchistiche).
  */
 
-
+/*
 public class Queens {
 
   private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -89,6 +94,8 @@ public class Queens {
    * c'e' un solo modo (banale) di completare la disposizione:
    * lasciare le cose come stanno!
    */
+
+  /*
   private static SList<Board> board = new SList<>();
 
   private static void numberOfSolutions(int n) {
@@ -153,4 +160,4 @@ public class Queens {
 
 
 }  // class Queens
-
+*/
