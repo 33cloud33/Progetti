@@ -4,11 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class SelectAlgorithm {
+class SelectAlgorithm {
 
-    private int[]            vettoreDaOrdinare = new int[] {13,12,1,41,5,86,88,21};
-    private BufferedReader   buffer            = new BufferedReader(new InputStreamReader(System.in));
-    private ListaAlgoritmi[] tuttiGliAlgoritmi = ListaAlgoritmi.values();
+    private final int[] vettoreDaOrdinare = new int[]{13, 12, 1, 41, 5, 86, 88, 21};
+    private final BufferedReader buffer = new BufferedReader(new InputStreamReader(System.in));
+    private final ListaAlgoritmi[] tuttiGliAlgoritmi = ListaAlgoritmi.values();
 
     void run() throws IOException, ArrayIndexOutOfBoundsException, NumberFormatException {
         this.visualizzaMenu();
@@ -25,7 +25,7 @@ public class SelectAlgorithm {
         System.out.println("5 - QuickSort");
     }
 
-    private void ordinaVettore(ListaAlgoritmi algoritmo, int[] vettoreDaOrdinare){
+    private void ordinaVettore(ListaAlgoritmi algoritmo, int[] vettoreDaOrdinare) {
         System.out.println("Il vettore ordinato con " + algoritmo.name() + " è: ");
         switch (algoritmo) {
             case INSERTIONSORT:
@@ -45,8 +45,6 @@ public class SelectAlgorithm {
                 break;
         }
     }
-
-
 
 
 }

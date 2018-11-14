@@ -1,6 +1,6 @@
 package algorithmChooser;
 
-public class MergeSort {
+class MergeSort {
     public static void mergeSort(int[] vettoreDaOrdinare) {
 
     }

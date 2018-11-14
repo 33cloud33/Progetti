@@ -1,8 +1,8 @@
 package algorithmChooser;
 
-public class ValueNotValidException extends Exception {
+class ValueNotValidException extends Exception {
 
-    ValueNotValidException(){
+    ValueNotValidException() {
         super();
     }
 

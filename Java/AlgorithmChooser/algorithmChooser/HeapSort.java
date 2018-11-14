@@ -1,6 +1,6 @@
 package algorithmChooser;
 
-public class HeapSort {
+class HeapSort {
     public static void heapSort(int[] vettoreDaOrdinare) {
 
     }

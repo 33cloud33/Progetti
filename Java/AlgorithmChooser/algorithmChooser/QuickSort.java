@@ -1,6 +1,6 @@
 package algorithmChooser;
 
-public class QuickSort {
+class QuickSort {
     public static void quickSort(int[] vettoreDaOrdinare) {
     }
 }
