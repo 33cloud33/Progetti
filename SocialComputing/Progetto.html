@@ -1,0 +1,263 @@
+<meta charset="utf-8">
+<!-- Obbligatorio per importare i tag <crowd>  -->
+<script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+<script type="text/javascript">
+/*Fare gold question, inviare risultati al csv, controllare tempo worker e i suoi tentativi*/
+  var numeroDiPagina = 0; 
+  var array = [1,2,3,4,5,6,7]; //Permette di fare lo shuffle delle immagini
+  array = shuffle(array);
+  var answer = [false, false]; //Risposte questionario
+  var ansCheck = [true, false, false, false, false, false, false, false];//Risposte immagini
+  function shuffle(a) {
+      var j, x, i;
+      for (i = a.length - 1; i > 0; i--) {
+          j = Math.floor(Math.random() * (i + 1));
+          x = a[i];
+          a[i] = a[j];
+          a[j] = x;
+      }
+      return a;
+  }
+  /*Visualizza elemento nascosto*/
+  function show(argument){
+    document.getElementById(argument).style.display = "block";
+  }
+  /*Opposto di show()*/
+  function hide(argument){
+    document.getElementById(argument).style.display = "none";
+  }
+  /*Quando premo il pulsante in avanti*/
+  function navigationForward(){
+    var imm = document.getElementById("immagine");
+    if(numeroDiPagina == 0){
+      hide('questionario'); 
+      show('pagina');
+      show('indietro');
+      hide('primoAvanti')
+    } else if (numeroDiPagina == 6){
+      hide('avanti');
+      show('submit');
+      hide('sceltaImmagine' + numeroDiPagina);
+      show('sceltaImmagine'+ (numeroDiPagina+1));
+    } else{
+      hide('sceltaImmagine' + numeroDiPagina);
+      show('sceltaImmagine'+ (numeroDiPagina+1));
+    }
+    if(!ansCheck[numeroDiPagina+1]){
+      document.getElementById("avanti").disabled = true;
+      console.log("disattivato");
+    }
+    numeroDiPagina++;   
+    imm.setAttribute("src", "https://kevinr.s3.us-east-2.amazonaws.com/landscapes/"+array[numeroDiPagina-1]+".jpg");
+  }
+  /*Quando premo il pulsante indietro*/
+  function navigationBackward(){
+    var imm = document.getElementById("immagine");
+    if(numeroDiPagina == 1){
+      show('questionario'); 
+      hide('pagina');
+      hide('indietro');
+      show('primoAvanti')
+    } else if(numeroDiPagina == 7){
+      show('avanti');
+      hide('submit');
+      hide('sceltaImmagine' + numeroDiPagina);
+      show('sceltaImmagine'+ (numeroDiPagina-1));
+    } else{
+      hide('sceltaImmagine' + numeroDiPagina);
+      show('sceltaImmagine'+(numeroDiPagina-1));
+    }
+    if(ansCheck[numeroDiPagina-1]){
+      document.getElementById("avanti").disabled = false;
+      console.log("disattivato");
+    }
+    numeroDiPagina--;
+    imm.setAttribute("src", "https://kevinr.s3.us-east-2.amazonaws.com/landscapes/"+array[numeroDiPagina-1]+".jpg");
+  }
+  /*Controllo se ho inserito le risposte e attivo il pulsante "Avanti"*/
+  function check(number, name){
+    console.log(name);
+    if(name == "primoAvanti"){
+      answer[number-1] = true;
+      if(answer[0] && answer[1]){
+        document.getElementById(name).disabled = false;
+      }
+    }else{
+      ansCheck[numeroDiPagina] = true;
+      document.getElementById(name).disabled = false;
+    }
+  }
+  function printArray(arr){
+    for(i=0; i<arr.length; i++){
+      console.log("Posizione " + i + ": " + arr[i])
+    }
+  }
+  /*Controllo se tutti i caratteri sono numeri*/
+  function isNumber(str){
+    var isNum = /^\d+$/.test(str);
+    return isNum;
+  }
+  /*Controllo se l'età abbia il formato adeguato*/
+  function checkAge(){
+    var age = document.getElementById("age1").value;
+    var control = true;
+    var isNum = isNumber(age);
+    if(age < 0 || age > 100 || !isNum){
+      alert("Inserire età corretta!");
+      control = false;
+    }
+    if(control){
+     navigationForward();
+    }
+  }
+</script>
+
+
+<!-- Il CSS dell'intera pagina. Qui mettiamo ogni modifica visuale della pagina -->
+<style type="text/css">
+  crowd-form{
+    display: block;
+    margin: 1.5em 1.5em 0;
+  } 
+  img {
+    max-width: 50%;
+    max-height: 80%;
+  }
+  .block {
+    border: 1px lightgrey solid;
+    padding: 1em 3em;
+    margin-bottom: 2em;
+  }
+  .choose{
+    display: none;
+  }
+  #pagina, #indietro, #submit{
+    display: none;
+  }
+  #sceltaImmagine1{
+    display: block;
+  }
+  #domande{
+    position: absolute;
+    top: 2em;
+    left: 50%;
+    padding-left: 5em;
+  }
+</style>
+
+<crowd-form>
+      
+
+      <full-instructions header="Category Analysis Instructions">
+        <p>Sulla prima pagina abbiamo un questionario da completare. E' necessario completare tutte le risposte.</p>
+        <p><b>Ci sono 4 categorie di immagini</b>: Città, Mare, Montagna e Pianura.<br>
+        <p><strong>Montagna</strong>: se nell'immagine c'è una montagna.</p>
+        <p><strong>Mare</strong>: se nell'immagine c'è il mare.</p>
+        <p><strong>Città</strong>: se nell'immagine c'è una città.</p>
+        <p><strong>Pianura</strong>: se nell'immagine c'è una pianura.</p>
+        <strong>Basterà selezionare quella che si ritiene opportuna.</strong></p></p>
+      </full-instructions>
+
+      <short-instructions>
+       <h3><strong>Introduzione</strong></h3>
+       <p>Sulla prima pagina abbiamo un questionario da completare. E' necessario completare tutte le risposte.</p>
+                <p>Ti verranno mostrate <b>7 immagini</b> e 4 risposte per ognuna di esse.</p>
+                <p>Per ognuna bisognerà indicare a che categoria appartiene l'immagine mostrata.</p>
+                <br />  
+      </short-instructions>
+
+
+
+  <!-- Fase 1: Creazione del questionario da compilare   -->
+  <div id="questionario">
+    <h3><p>Ti verranno chieste delle informazioni personali per aiutare a migliorare i compiti.</p></h3>
+      <div id="gender" class="block">
+        <div class="titlequestion">
+          <strong>Sesso</strong>
+      </div>
+      <crowd-radio-group id="radiogender" onclick = "check(1, 'primoAvanti')">
+        <crowd-radio-button name="M">Maschio</crowd-radio-button>
+        <crowd-radio-button name="F">Femmina</crowd-radio-button>
+        <crowd-radio-button name="A">Altro</crowd-radio-button>
+      </crowd-radio-group>
+    </div>
+    <div id="age" class="block">
+      <div class="titlequestion">
+        <strong>Età</strong>
+      </div>
+      <crowd-input id="age1" name="age" label="Inserire età" placeholder="Esempio: 25" onkeydown = "check(2, 'primoAvanti')"></crowd-input>
+    </div>
+
+    <div id="education" class="block">
+      <div class="titlequestion">
+        <strong>Titolo di studio:</strong>
+      </div>
+      <select name="school">
+        <option name="middle">Scuola media</option>
+        <option name="high">Scuola superiore</option>
+        <option name="firstdegree">Laurea triennale</option>
+        <option name="seconddegree">Laurea magistrale/master</option>
+        <option name="other">Altro</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Fase 2: Classificazione di immagini -->
+  <div id="pagina">
+    
+    <img id="immagine">
+
+    <div id="domande">
+      <h2>Scegli l'opzione più adeguata:</h2>
+      <crowd-radio-group id="sceltaImmagine1" class="choose" onchange = "check(1, 'avanti')">
+        <crowd-radio-button name="mountain1">Montagna</crowd-radio-button><br>
+        <crowd-radio-button name="sea1">Mare</crowd-radio-button><br>
+        <crowd-radio-button name="city1">Città</crowd-radio-button><br>
+        <crowd-radio-button name="flatland1">Pianura</crowd-radio-button>
+      </crowd-radio-group>
+      <crowd-radio-group id="sceltaImmagine2" class="choose" onchange = "check(2, 'avanti')">
+        <crowd-radio-button name="mountain2">Montagna</crowd-radio-button><br>
+        <crowd-radio-button name="sea2">Mare</crowd-radio-button><br>
+        <crowd-radio-button name="city2">Città</crowd-radio-button><br>
+        <crowd-radio-button name="flatland2">Pianura</crowd-radio-button>
+      </crowd-radio-group>
+      <crowd-radio-group id="sceltaImmagine3" class="choose" onchange = "check(3, 'avanti')">
+        <crowd-radio-button name="mountain3">Montagna</crowd-radio-button><br>
+        <crowd-radio-button name="sea3">Mare</crowd-radio-button><br>
+        <crowd-radio-button name="city3">Città</crowd-radio-button><br>
+        <crowd-radio-button name="flatland3">Pianura</crowd-radio-button>
+      </crowd-radio-group>
+      <crowd-radio-group id="sceltaImmagine4" class="choose" onchange = "check(4, 'avanti')">
+        <crowd-radio-button name="mountain4">Montagna</crowd-radio-button><br>
+        <crowd-radio-button name="sea4">Mare</crowd-radio-button><br>
+        <crowd-radio-button name="city4">Città</crowd-radio-button><br>
+        <crowd-radio-button name="flatland4">Pianura</crowd-radio-button>
+      </crowd-radio-group>
+      <crowd-radio-group id="sceltaImmagine5" class="choose" onchange = "check(5, 'avanti')">
+        <crowd-radio-button name="mountain5">Montagna</crowd-radio-button><br>
+        <crowd-radio-button name="sea5">Mare</crowd-radio-button><br>
+        <crowd-radio-button name="city5">Città</crowd-radio-button><br>
+        <crowd-radio-button name="flatland5">Pianura</crowd-radio-button>
+      </crowd-radio-group>
+      <crowd-radio-group id="sceltaImmagine6" class="choose" onchange = "check(6, 'avanti')">
+        <crowd-radio-button name="mountain6">Montagna</crowd-radio-button><br>
+        <crowd-radio-button name="sea6">Mare</crowd-radio-button><br>
+        <crowd-radio-button name="city6">Città</crowd-radio-button><br>
+        <crowd-radio-button name="flatland6">Pianura</crowd-radio-button>
+      </crowd-radio-group>
+      <crowd-radio-group id="sceltaImmagine7" class="choose" onchange = "check(7, 'avanti')">
+        <crowd-radio-button name="mountain7">Montagna</crowd-radio-button><br>
+        <crowd-radio-button name="sea7">Mare</crowd-radio-button><br>
+        <crowd-radio-button name="city7">Città</crowd-radio-button><br>
+        <crowd-radio-button name="flatland7">Pianura</crowd-radio-button>
+      </crowd-radio-group>
+      <div id="pulsantiNavigazione">
+        <crowd-button id="indietro" onclick="navigationBackward()">Indietro</crowd-button>
+        <crowd-button id="avanti" onclick="navigationForward();" disabled>Avanti</crowd-button>
+        <crowd-button id="submit" form-action="submit">Invia risultati</crowd-button>
+      </div>
+    </div>
+  </div>
+
+  <crowd-button id="primoAvanti" onclick="checkAge();" disabled>Avanti</crowd-button>
+</crowd-form>
