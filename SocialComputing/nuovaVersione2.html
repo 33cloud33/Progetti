@@ -1,0 +1,463 @@
+<meta charset="utf-8">
+<!-- Obbligatorio per importare i tag <crowd>  -->
+<script src="https://assets.crowd.aws/crowd-html-elements.js"></script>
+<script type="text/javascript">
+  /*Inviare risultati al csv, controllare tempo worker*/
+  var errori = 0;
+  var ERRORI_MAX = 3;
+  var numeroDiPagina = 0;
+  var indiciImmagini = [1, 2, 3, 4, 5, 6, 7]; //Permette di fare lo shuffle delle immagini
+  indiciImmagini = shuffle(indiciImmagini);
+  var numeroImmagini = indiciImmagini.length;
+  var numeroGoldQuestions = 2;
+  var risposteQuestionario = [false, false, false]; //Risposte questionario
+  var ansCheck = setAnsCheck;//Risposte immagini
+  function setAnsCheck(){
+    return [true, false, false, false, false, false, false, false, false, false];
+  }
+  function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+      j = Math.floor(Math.random() * (i + 1));
+      x = a[i];
+      a[i] = a[j];
+      a[j] = x;
+    }
+    return a;
+  }
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  /*Visualizza elemento nascosto*/
+  function show(argument) {
+    document.getElementById(argument).style.display = "block";
+  }
+  /*Opposto di show()*/
+  function hide(argument) {
+    document.getElementById(argument).style.display = "none";
+  }
+  function setImage(num) {
+    var imm = document.getElementById("immagine");
+    imm.setAttribute("src", "https://kevinr.s3.us-east-2.amazonaws.com/landscapes/" + indiciImmagini[num] + ".jpg");
+  }
+  /*Quando premo il pulsante in avanti*/
+  function navigationForward() {
+    if (numeroDiPagina >= 7) {
+      if (numeroDiPagina == 7) {
+      hide('pulsantiNavigazione', 'pagina', 'sceltaImmagine' + (numeroDiPagina), 'goldQuestionCheck')
+      show('pulsantiNavigazioneGold', 'goldQuestions', 'goldQuestion1', 'avantiGold')
+      } else {
+        hide('goldQuestion1', 'avantiGold')
+        show('goldQuestion2', 'goldQuestionCheck')
+      }
+    } else {
+      if (numeroDiPagina == 0) {
+        hide('questionario', 'primoAvanti');
+        show('pagina', 'indietro', 'sceltaImmagine' + 1, 'pulsantiNavigazione');
+        setImage(numeroDiPagina);
+      } else {
+        hide('sceltaImmagine' + numeroDiPagina);
+        show('sceltaImmagine' + (numeroDiPagina + 1));
+        setImage(numeroDiPagina);
+      }
+    }
+    if (!ansCheck[numeroDiPagina + 1]) {
+      document.getElementById("avanti").disabled = true;
+      console.log("disattivato");
+    }
+    numeroDiPagina++;
+    console.log(numeroDiPagina)
+  }
+  /*Quando premo il pulsante indietro*/
+  function navigationBackward() {
+    if (numeroDiPagina >= 8) {
+      if (numeroDiPagina == 8) {
+      show('pulsantiNavigazione', 'pagina', 'sceltaImmagine' + (numeroDiPagina - 1))
+      hide('pulsantiNavigazioneGold', 'goldQuestions', 'goldQuestion1')
+      setImage(numeroDiPagina - 2)
+      } else {
+        show('goldQuestion1', 'avantiGold')
+        hide('goldQuestion2', 'goldQuestionCheck')
+      }
+    } else {
+      if (numeroDiPagina == 1) {
+        show('questionario');
+        hide('pagina');
+        hide('indietro');
+        show('primoAvanti')
+      } else {
+        hide('sceltaImmagine' + numeroDiPagina);
+        show('sceltaImmagine' + (numeroDiPagina - 1));
+        setImage(numeroDiPagina - 2)
+      }
+      if (ansCheck[numeroDiPagina - 1]) {
+        document.getElementById("avanti").disabled = false;
+        console.log("disattivato");
+      }
+    }
+    numeroDiPagina--;
+    console.log(numeroDiPagina)
+  }
+  function createCSV(){
+    const rows = [
+        ["img1", "img2", "img3", "img4", "img5", "img6", "img7", "g1", "g2", "id_unit"]
+    ];
+
+    let csvContent = "data:text/csv;charset=utf-8,";
+    var risposta = [];
+
+    // 3, 5, 2, 1, 7, 6, 4
+    for(var i=1; i<=7; i++){
+      var indice = indiciImmagini.indexOf(i)+1;
+      var montagna = getElementsByName("mountain"+indice);
+      var mare = getElementsByName("sea"+indice);
+      var citta = getElementsByName("city"+indice);
+      var pianura = getElementsByName("flatland"+indice);
+
+      if(montagna[0].value == true){
+        risposta[i-1] = "montagna";
+      }
+      else if(mare[0].value == true){
+        risposta[i-1] = "mare";
+      }
+      else if(citta[0].value == true){
+        risposta[i-1] = "citta";
+      }
+      else if(pianura[0].value == true){
+        risposta[i-1] = "pianura";
+      }
+    }
+
+    printArray(risposta);
+    /*
+    rows.forEach(function(rowArray) {
+        let row = rowArray.join(",");
+        csvContent += row + "\r\n";
+    });*/
+  }
+  /*Controllo se ho inserito le risposte e attivo il pulsante "Avanti"*/
+  function check(number, name) {
+    console.log(name);
+    if (name == "primoAvanti") {
+      risposteQuestionario[number - 1] = true;
+      if (risposteQuestionario[0] &&
+          risposteQuestionario[1] &&
+          risposteQuestionario[2]) {
+       // setTimeout(function(){document.getElementById(name).disabled = false;}, 2000);
+        document.getElementById(name).disabled = false;
+      }
+    } else {
+      ansCheck[numeroDiPagina] = true;
+      //setTimeout(function(){document.getElementById(name).disabled = false;}, 2000);
+      document.getElementById(name).disabled = false;
+    }
+  }
+  function printArray(arr) {
+    for (i = 0; i < arr.length; i++) {
+      console.log("Posizione " + i + ": " + arr[i])
+    }
+  }
+  /*Controllo se tutti i caratteri sono numeri*/
+  function isNumber(str) {
+    var isNum = /^\d+$/.test(str);
+    return isNum;
+  }
+  /*Controllo che l'età abbia il formato adeguato*/
+  function checkAge() {
+    var age = document.getElementById("age1").value;
+    var control = true;
+    var isNum = isNumber(age);
+    if (age < 0 || age > 100 || !isNum) {
+      alert("Inserire età corretta!");
+      control = false;
+    }
+    if (control) {
+      navigationForward();
+    }
+  }
+  // 16/11 & 17/11 - Salvatore Riefolo
+  // Modificato navigationForward e navigationBackward per includere le gold questions.
+  // Aggiunti controlli su gold question, aggiunte terminazioni del task in base alle varie casistiche di errore (terminazione normale, retry, bad ending).
+  // Uguali alle funzioni già presenti, ma possono prendere più di un elemento come argomento.
+  // Es: show("id1", "id2", "id3") cambierà lo stile di display dei tre tag relativi.
+  function show() {
+    for (var i = 0; i < arguments.length; i++) {
+      document.getElementById(arguments[i]).style.display = "block";
+    }
+  }
+  function hide() {
+    for (var i = 0; i < arguments.length; i++) {
+      document.getElementById(arguments[i]).style.display = "none";
+    }
+  }
+  // Controllo che le risposte alle gold question siano corrette, altrimenti se gli errori sono meno degli errori massimi resetto il task.
+  // Se gli errori sono >= ERRORI_MAX, termino il task e scarto i dati.
+  function goldQuestionCheck(){
+    var check = true;
+    var ans1 = getGoldAnswerValue("goldQ1");
+    var ans2 = getGoldAnswerValue("goldQ2");
+    console.log(ans1 + " " + ans2)
+    if (ans1 == "right" && ans2 == "right"){
+      mostraFine();
+    } else if (++errori < ERRORI_MAX){
+      setAnsCheck();
+      mostraRiprova();
+    } else {
+      terminaTaskErrore();
+    }
+  }
+  // Salvo il valore dell'opzione selezionata nella gold question
+  function getGoldAnswerValue(name){
+    var answers = document.getElementsByClassName(name);
+    var ans_value;
+    for(var i = 0; i < answers.length; i++){
+      if(answers[i].checked){
+          ans_value = answers[i].value;
+          return ans_value;
+      }
+    }
+  }
+  // Rimando il worker alla prima pagina del task (saltando il questionario)
+  function resetTask(){
+    numeroDiPagina = 0;
+    hide('retryBox')
+    resetRadio('sceltaImmagine', numeroImmagini);
+    resetRadio('goldQuestion', numeroGoldQuestions);
+    navigationForward();
+  }
+  // Mostro al worker il pulsante di submit per terminare il task
+  function mostraFine(){
+    hide('goldQuestions', 'pulsantiNavigazioneGold')
+    show('endBox')
+  }
+  // Mostro al worker il pulsante di retry per riprovare l'esecuzione del task
+  function mostraRiprova(){
+    hide('goldQuestions', 'goldQuestion2', 'pulsantiNavigazioneGold')
+    document.getElementById("tentativiRimasti").innerHTML = "Tentativi rimasti: " + (ERRORI_MAX - errori);
+    show('retryBox')
+  }
+  // Mostro al worker un messaggio di errore, e termino l'esecuzione del task senza salvare i dati inseriti dal worker
+  function terminaTaskErrore(){
+    hide('goldQuestions', 'pulsantiNavigazioneGold')
+    show('errorBox')
+  }
+  function checkForm(envir){
+    createCSV();
+    $("BODY").empty();
+    cont = $("<div>").addClass("containter").html("FINE.")
+    $("BODY").append(cont)
+    $("BODY").css("color", "black").css("background-color", "white").css("text-align", "center")
+    return "t";
+  }
+  function resetRadio(element, num) {
+    for(var i = 1; i <= num; i++){
+      var answers = document.getElementById(element + i).getElementsByTagName('crowd-radio-button');
+      for (var j = 0; j < answers.length; j++) {
+        if (answers[j].checked) {
+          answers[j].checked = false;
+        }
+      }
+    }
+  }
+</script>
+
+
+<!-- Il CSS dell'intera pagina. Qui mettiamo ogni modifica visuale della pagina -->
+<style type="text/css">
+  crowd-form {
+    display: block;
+    margin: 1.5em 1.5em 0;
+  }
+  img {
+    max-width: 50%;
+    max-height: 80%;
+  }
+  .block {
+    border: 1px lightgrey solid;
+    padding: 1em 3em;
+    margin-bottom: 2em;
+  }
+  .choose {
+    display: none;
+  }
+  #pagina,
+  #indietro,
+  #submit,
+  #pulsantiNavigazioneGold,
+  #errorBox,
+  #retryBox,
+  #endBox {
+    display: none;
+  }
+  #sceltaImmagine1 {
+    display: block;
+  }
+  #domande {
+    position: absolute;
+    top: 2em;
+    left: 50%;
+    padding-left: 5em;
+  }
+</style>
+
+<crowd-form>
+
+
+  <full-instructions header="Category Analysis Instructions">
+    <p><b>Ci sono 4 categorie</b>: Città, Mare, Montagna e Pianura.<br>
+      <p><strong>Montagna</strong>: se nell'immagine c'è una montagna.</p>
+      <p><strong>Mare</strong>: se nell'immagine c'è il mare.</p>
+      <p><strong>Città</strong>: se nell'immagine c'è una città.</p>
+      <p><strong>Pianura</strong>: se nell'immagine c'è una pianura.</p>
+      <strong>Basterà selezionare quella che si ritiene opportuna.</strong>
+    </p>
+    </p>
+  </full-instructions>
+
+  <short-instructions>
+    <h3><strong>Introduzione</strong></h3>
+    <p>Ti verranno mostrate <b>7 immagini</b> e 4 risposte per ognuna di esse.</p>
+    <p>Per ognuna bisognerà indicare a che categoria appartiene l'immagine mostrata.</p>
+    <br />
+  </short-instructions>
+
+
+
+  <!-- Fase 1: Creazione del questionario da compilare   -->
+  <div id="questionario">
+    <h3>
+      <p>Ti verranno chieste delle informazioni personali per aiutare a migliorare i compiti.</p>
+    </h3>
+    <div id="gender" class="block">
+      <div class="titlequestion">
+        <strong>Sesso</strong>
+      </div>
+      <crowd-radio-group id="radiogender" onclick="check(1, 'primoAvanti')">
+        <crowd-radio-button name="M">Maschio</crowd-radio-button>
+        <crowd-radio-button name="F">Femmina</crowd-radio-button>
+        <crowd-radio-button name="A">Altro</crowd-radio-button>
+      </crowd-radio-group>
+    </div>
+    <div id="age" class="block">
+      <div class="titlequestion">
+        <strong>Età</strong>
+      </div>
+      <crowd-input id="age1" name="age" label="Inserire età" placeholder="Esempio: 25"
+        onkeydown="check(2, 'primoAvanti')"></crowd-input>
+    </div>
+
+    <div id="education" class="block">
+      <div class="titlequestion">
+        <strong>Titolo di studio:</strong>
+      </div>
+      <select name="school" onchange="check(3, 'primoAvanti')">
+        <option name="middle">Scuola media</option>
+        <option name="high">Scuola superiore</option>
+        <option name="firstdegree">Laurea triennale</option>
+        <option name="seconddegree">Laurea magistrale/master</option>
+        <option name="other">Altro</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Fase 2: Classificazione di immagini -->
+  <div id="pagina">
+
+    <img id="immagine">
+
+    <div id="domande">
+      <h2>Scegli l'opzione più adeguata:</h2>
+      <crowd-radio-group id="sceltaImmagine1" class="choose" onchange="check(1, 'avanti')">
+        <crowd-radio-button name="mountain1">Montagna</crowd-radio-button><br>
+        <crowd-radio-button name="sea1">Mare</crowd-radio-button><br>
+        <crowd-radio-button name="city1">Città</crowd-radio-button><br>
+        <crowd-radio-button name="flatland1">Pianura</crowd-radio-button>
+      </crowd-radio-group>
+      <crowd-radio-group id="sceltaImmagine2" class="choose" onchange="check(2, 'avanti')">
+        <crowd-radio-button name="mountain2">Montagna</crowd-radio-button><br>
+        <crowd-radio-button name="sea2">Mare</crowd-radio-button><br>
+        <crowd-radio-button name="city2">Città</crowd-radio-button><br>
+        <crowd-radio-button name="flatland2">Pianura</crowd-radio-button>
+      </crowd-radio-group>
+      <crowd-radio-group id="sceltaImmagine3" class="choose" onchange="check(3, 'avanti')">
+        <crowd-radio-button name="mountain3">Montagna</crowd-radio-button><br>
+        <crowd-radio-button name="sea3">Mare</crowd-radio-button><br>
+        <crowd-radio-button name="city3">Città</crowd-radio-button><br>
+        <crowd-radio-button name="flatland3">Pianura</crowd-radio-button>
+      </crowd-radio-group>
+      <crowd-radio-group id="sceltaImmagine4" class="choose" onchange="check(4, 'avanti')">
+        <crowd-radio-button name="mountain4">Montagna</crowd-radio-button><br>
+        <crowd-radio-button name="sea4">Mare</crowd-radio-button><br>
+        <crowd-radio-button name="city4">Città</crowd-radio-button><br>
+        <crowd-radio-button name="flatland4">Pianura</crowd-radio-button>
+      </crowd-radio-group>
+      <crowd-radio-group id="sceltaImmagine5" class="choose" onchange="check(5, 'avanti')">
+        <crowd-radio-button name="mountain5">Montagna</crowd-radio-button><br>
+        <crowd-radio-button name="sea5">Mare</crowd-radio-button><br>
+        <crowd-radio-button name="city5">Città</crowd-radio-button><br>
+        <crowd-radio-button name="flatland5">Pianura</crowd-radio-button>
+      </crowd-radio-group>
+      <crowd-radio-group id="sceltaImmagine6" class="choose" onchange="check(6, 'avanti')">
+        <crowd-radio-button name="mountain6">Montagna</crowd-radio-button><br>
+        <crowd-radio-button name="sea6">Mare</crowd-radio-button><br>
+        <crowd-radio-button name="city6">Città</crowd-radio-button><br>
+        <crowd-radio-button name="flatland6">Pianura</crowd-radio-button>
+      </crowd-radio-group>
+      <crowd-radio-group id="sceltaImmagine7" class="choose" onchange="check(7, 'avanti')">
+        <crowd-radio-button name="mountain7">Montagna</crowd-radio-button><br>
+        <crowd-radio-button name="sea7">Mare</crowd-radio-button><br>
+        <crowd-radio-button name="city7">Città</crowd-radio-button><br>
+        <crowd-radio-button name="flatland7">Pianura</crowd-radio-button>
+      </crowd-radio-group>
+      <div id="pulsantiNavigazione">
+        <crowd-button id="indietro" onclick="navigationBackward()">Indietro</crowd-button>
+        <crowd-button id="avanti" onclick="navigationForward();" disabled>Avanti</crowd-button>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="goldQuestions">
+    <crowd-radio-group id="goldQuestion1" class="choose" onchange="check(8, 'avantiGold')">
+      <div>Gold question: il Sole è: </div>
+      <crowd-radio-button class="goldQ1" name="ans1-1">Un pianeta</crowd-radio-button><br>
+      <crowd-radio-button class="goldQ1" name="ans1-2" value="right">Una stella</crowd-radio-button><br>
+      <crowd-radio-button class="goldQ1" name="ans1-3">Una galassia</crowd-radio-button><br>
+    </crowd-radio-group>
+
+    <crowd-radio-group id="goldQuestion2" class="choose" onchange="check(9, 'avantiGold')">
+      <div>Gold question: I cani hanno: </div>
+      <crowd-radio-button class="goldQ2" name="ans2-1">Due zampe</crowd-radio-button><br>
+      <crowd-radio-button class="goldQ2" name="ans2-2">Tre zampe</crowd-radio-button><br>
+      <crowd-radio-button class="goldQ2" name="ans2-3"  value="right">Quattro zampe</crowd-radio-button><br>
+    </crowd-radio-group>
+
+    <div id="pulsantiNavigazioneGold">
+      <crowd-button id="indietroGold" onclick="navigationBackward()">Indietro</crowd-button>
+      <crowd-button id="avantiGold" onclick="navigationForward()" disabled>Avanti</crowd-button>
+      <crowd-button id="goldQuestionCheck" onclick="goldQuestionCheck()">Invia risultati</crowd-button>
+    </div>
+  </div>
+
+  <div id="errorBox" style="text-align:center;">
+    <h1>Ci dispiace, </h1>
+    <h2>Il tuo lavoro non è stato abbastanza preciso.</h2>
+    <h2>Non puoi più riprovare ad eseguire questo task.</h2>
+  </div>
+  <div id="retryBox" style="text-align:center;">
+    <h1>Ci dispiace, </h1>
+    <h2>Il tuo lavoro non è stato abbastanza preciso.</h2>
+    <h2>Puoi riprovare ad eseguire questo task.</h2>
+    <h2 id="tentativiRimasti"></h2>
+    <crowd-button id="retry" onclick="resetTask()">Riprova</crowd-button>
+  </div>
+  <div id="endBox" style="text-align:center;">
+    <h1>Congratulazioni!</h1>
+    <h2>Hai raggiunto la fine. Clicca Submit per concludere il task.</h2>
+    <button id="submitButton" type="submit" value="submit" onsubmit="return checkForm(this);">
+        Invia risultati
+    </button>
+  </div>
+
+  <crowd-button id="primoAvanti" onclick="checkAge();" disabled>Avanti</crowd-button>
+</crowd-form>
