@@ -203,15 +203,13 @@
   var startTime = Date.now(); // Prende il tempo non appena viene caricata la prima pagina
 
 
-
-  // Quando premo il pulsante in avanti
+  // Viene chiamato quando si preme il pulsante "avanti" (o "primoAvanti")
   function navigationForward() {
     var endTime = Date.now();
     seconds[numeroDiPagina] = Math.floor((endTime-startTime)/1000);
     startTime = endTime;
     
     var immagineCorrente = indiciImmagini[numeroDiPagina];
-    //imm.setAttribute("src", "https://kevinr.s3.us-east-2.amazonaws.com/landscapes/"+ immagineCorrente +".jpg");
     if (numeroDiPagina == 0) {
       primaPaginaAvanti();
     } else if (numeroDiPagina == 6){
@@ -238,9 +236,8 @@
     document.getElementById("avanti").disabled = !ansCheck[numeroDiPagina]; 
   }
 
-  // Quando premo il pulsante indietro
+  // Viene chiamato quando si preme il pulsante "indietro"
   function navigationBackward() {
-      
     if (numeroDiPagina == 1) {
       primaPaginaIndietro();
     } else if(numeroDiPagina == 7){
@@ -254,6 +251,7 @@
     document.getElementById("avanti").disabled = false; 
   }
 
+  // Completa la risposta JSON con i valori possibili da scegliere tra: Montagna, Mare, Citta, Pianura
   function insertAnswer(){
     var risposta = ["Montagna", "Mare", "Citta", "Pianura"];
     for(var i=1; i<=7; i++){
@@ -270,30 +268,13 @@
   // Controllo se ho inserito le risposte e attivo il pulsante "Avanti"
   function check(number, name) {
     if (name == "primoAvanti") {
-      risposteQuestionario[number - 1] = true;
+      risposteQuestionario[number-1] = true;
       if (risposteQuestionario[0] && risposteQuestionario[1]){
         document.getElementById(name).disabled = false;
       }
     } else {
       ansCheck[numeroDiPagina] = true;
       document.getElementById(name).disabled = false;
-    }
-  }
-
-  function shuffle(a) {
-    var j, x, i;
-    for (i = a.length - 1; i > 0; i--) {
-      j = Math.floor(Math.random() * (i + 1));
-      x = a[i];
-      a[i] = a[j];
-      a[j] = x;
-    }
-    return a;
-  }
-
-  function printArray(arr) {
-    for (i = 0; i < arr.length; i++) {
-      console.log("Posizione " + i + ": " + arr[i])
     }
   }
 
@@ -317,14 +298,7 @@
     }
   }
 
-/*DA METTERE 2 SECONDI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-DA METTERE 2 SECONDI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-DA METTERE 2 SECONDI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-DA METTERE 2 SECONDI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!DA METTERE 2 SECONDI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-DA METTERE 2 SECONDI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!DA METTERE 2 SECONDI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-DA METTERE 2 SECONDI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!DA METTERE 2 SECONDI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-DA METTERE 2 SECONDI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!DA METTERE 2 SECONDI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-DA METTERE 2 SECONDI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+  // Restituisce true se il worker ha passato più di 2 secondi su ogni domanda, false altrimenti
   function checkTime(){
     for (var i = 0; i < seconds.length; i++) {
       if(seconds[i]<2){
@@ -333,20 +307,6 @@ DA METTERE 2 SECONDI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
     return true;
   }
-
-  // 16/11 & 17/11
-  // Modificato navigationForward e navigationBackward per includere le gold questions.
-  // Aggiunti controlli su gold question, aggiunte terminazioni del task in base alle varie casistiche di errore (terminazione normale, retry, bad ending).
-
-  // Uguali alle funzioni gia' presenti, ma possono prendere piu' di un elemento come argomento.
-  // Es: show("id1", "id2", "id3") cambierà lo stile di display dei tre tag relativi.
-
-
-  // 18/11 & 19/11
-  // Sistemate gold questions (immagini 3 e 6)
-  // AGGIUNTA funzione addGoldQuestion
-  // MODIFICA resetTask, goldQuestionCheck e getGoldQuestionValue
-  // TODO: chiedere se nascondere 'indietro' dopo il reset è necessario
 
   function show() {
     for (var i = 0; i < arguments.length; i++) {
@@ -421,8 +381,9 @@ DA METTERE 2 SECONDI!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   // Resetto la funzione ansCheck
   function resetAnsCheck(arr){
-    for (var i = 1; i < arr.length; i++)
-    arr[i] = false;
+    for (var i = 1; i < arr.length; i++) { 
+    	arr[i] = false;
+    }
   }
 
   // Rimando il worker alla prima pagina del task (saltando il questionario), resettando i valori dei bottoni
